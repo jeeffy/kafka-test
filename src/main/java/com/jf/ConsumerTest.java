@@ -18,7 +18,7 @@ public class ConsumerTest {
         props.load(inputStream);
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
 
-        consumer.subscribe(Arrays.asList("test", "bar"));
+        consumer.subscribe(Arrays.asList("test"));
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(100);
             for (ConsumerRecord<String, String> record : records){
