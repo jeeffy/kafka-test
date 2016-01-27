@@ -17,21 +17,21 @@ public class ProducerCallbackTest {
         props.load(inputStream);
         Producer<String, String> producer = new KafkaProducer(props);
 
-        for(int i = 0; i < 1000000; i++){
+        long start = System.currentTimeMillis();
+        for(int i = 0; i < 100000000; i++){
             ProducerRecord record = new ProducerRecord<String, String>("test", Integer.toString(i), Integer.toString(i));
             Future<RecordMetadata> future = producer.send(record,new Callback() {
                 public void onCompletion(RecordMetadata metadata, Exception e) {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e1) {
-                        e1.printStackTrace();
-                    }
-                    if(e != null)
+                    if(e != null){
                         e.printStackTrace();
+                    }
+                    //metadata.offset();
                     System.out.println(metadata.offset());
                 }
             });
         }
+        long end = System.currentTimeMillis();
+        System.out.println("------------"+(end - start));
 
         producer.close();
     }

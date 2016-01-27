@@ -19,12 +19,21 @@ public class ProducerTest {
         InputStream inputStream = ProducerTest.class.getResourceAsStream("/producer.properties");
         props.load(inputStream);
         Producer<String, String> producer = new KafkaProducer(props);
+        long start = System.currentTimeMillis();
+        //producer.send(new ProducerRecord<String, String>("test", Integer.toString(1), Integer.toString(21)));
 
-        for(int i = 0; i < 3; i++){
+
+        for(int i = 0; i < 1000000; i++){
+            //long start = System.currentTimeMillis();
             Future<RecordMetadata> future = producer.send(new ProducerRecord<String, String>("test", Integer.toString(i), Integer.toString(i)));
-            System.out.println(future.get().offset());
+            //future.get().offset();
+            //long end = System.currentTimeMillis();
+            //System.out.println(end - start);
+            //future.get().offset();
+            //System.out.println(future.get().offset());
         }
-
+        long end = System.currentTimeMillis();
+        System.out.println(end - start);
         producer.close();
     }
 }
