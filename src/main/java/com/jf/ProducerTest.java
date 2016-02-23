@@ -23,14 +23,14 @@ public class ProducerTest {
         //producer.send(new ProducerRecord<String, String>("test", Integer.toString(1), Integer.toString(21)));
 
 
-        for(int i = 0; i < 1000000; i++){
+        for(int i = 0; i < 10; i++){
             //long start = System.currentTimeMillis();
             Future<RecordMetadata> future = producer.send(new ProducerRecord<String, String>("test", Integer.toString(i), Integer.toString(i)));
             //future.get().offset();
             //long end = System.currentTimeMillis();
             //System.out.println(end - start);
             //future.get().offset();
-            //System.out.println(future.get().offset());
+            System.out.println(future.get().offset());
         }
         long end = System.currentTimeMillis();
         System.out.println(end - start);
