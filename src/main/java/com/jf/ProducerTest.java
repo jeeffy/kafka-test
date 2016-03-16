@@ -15,6 +15,8 @@ import java.util.concurrent.Future;
 public class ProducerTest {
 
     public static void main(String[] args) throws Exception {
+
+
         Properties props = new Properties();
         InputStream inputStream = ProducerTest.class.getResourceAsStream("/producer.properties");
         props.load(inputStream);
