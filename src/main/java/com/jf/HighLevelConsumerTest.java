@@ -12,12 +12,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class ConsumerGroupExample {
+public class HighLevelConsumerTest {
     private final ConsumerConnector consumer;
     private final String topic;
     private  ExecutorService executor;
 
-    public ConsumerGroupExample(String a_zookeeper, String a_groupId, String a_topic) {
+    public HighLevelConsumerTest(String a_zookeeper, String a_groupId, String a_topic) {
         consumer = kafka.consumer.Consumer.createJavaConsumerConnector(
                 createConsumerConfig(a_zookeeper, a_groupId));
         this.topic = a_topic;
@@ -49,7 +49,7 @@ public class ConsumerGroupExample {
         //
         int threadNumber = 0;
         for (final KafkaStream stream : streams) {
-            executor.submit(new ConsumerTest(stream, threadNumber));
+            executor.submit(new ConsumerRunnable(stream, threadNumber));
             threadNumber++;
         }
     }
@@ -66,12 +66,17 @@ public class ConsumerGroupExample {
     }
 
     public static void main(String[] args) {
-        String zooKeeper = args[0];
+        /*String zooKeeper = args[0];
         String groupId = args[1];
         String topic = args[2];
-        int threads = Integer.parseInt(args[3]);
+        int threads = Integer.parseInt(args[3]);*/
 
-        ConsumerGroupExample example = new ConsumerGroupExample(zooKeeper, groupId, topic);
+        String zooKeeper = "localhost:2181";
+        String groupId = "g1";
+        String topic = "test";
+        int threads = 2;
+
+        HighLevelConsumerTest example = new HighLevelConsumerTest(zooKeeper, groupId, topic);
         example.run(threads);
 
         try {

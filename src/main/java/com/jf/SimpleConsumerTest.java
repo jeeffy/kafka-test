@@ -16,9 +16,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SimpleExample {
+public class SimpleConsumerTest {
     public static void main(String args[]) {
-        SimpleExample example = new SimpleExample();
+        SimpleConsumerTest example = new SimpleConsumerTest();
         long maxReads = Long.parseLong(args[0]);
         String topic = args[1];
         int partition = Integer.parseInt(args[2]);
@@ -35,7 +35,7 @@ public class SimpleExample {
 
     private List<String> m_replicaBrokers = new ArrayList<String>();
 
-    public SimpleExample() {
+    public SimpleConsumerTest() {
         m_replicaBrokers = new ArrayList<String>();
     }
 
