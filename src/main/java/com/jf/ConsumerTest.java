@@ -1,31 +1,21 @@
 package com.jf;
 
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
+import kafka.consumer.ConsumerIterator;
+import kafka.consumer.KafkaStream;
 
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.Properties;
+public class ConsumerTest implements Runnable {
+    private KafkaStream m_stream;
+    private int m_threadNumber;
 
-/**
- * Created by jeeffy on 1/18/16.
- */
-public class ConsumerTest {
-    public static void main(String[] args) throws Exception {
-        Properties props = new Properties();
-        InputStream inputStream = ConsumerTest.class.getResourceAsStream("/consumer.properties");
-        props.load(inputStream);
-        KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
+    public ConsumerTest(KafkaStream a_stream, int a_threadNumber) {
+        m_threadNumber = a_threadNumber;
+        m_stream = a_stream;
+    }
 
-        consumer.subscribe(Arrays.asList("test"));
-        while (true) {
-            ConsumerRecords<String, String> records = consumer.poll(100);
-            for (ConsumerRecord<String, String> record : records){
-                System.out.printf("offset = %d, key = %s, value = %s", record.offset(), record.key(), record.value());
-                System.out.println();
-
-            }
-        }
+    public void run() {
+        ConsumerIterator<byte[], byte[]> it = m_stream.iterator();
+        while (it.hasNext())
+            System.out.println("Thread " + m_threadNumber + ": " + new String(it.next().message()));
+        System.out.println("Shutting down Thread: " + m_threadNumber);
     }
 }
