@@ -3,9 +3,12 @@ package com.jf;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.PartitionInfo;
+import org.apache.kafka.common.TopicPartition;
 
 import java.io.InputStream;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -18,7 +21,14 @@ public class ConsumerTest {
         props.load(inputStream);
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
 
-        consumer.subscribe(Arrays.asList("test"));
+        //consumer.subscribe(Arrays.asList("test"));
+        //consumer.subscribe(Arrays.asList("tamboo_config"));
+        List<TopicPartition> tpList = new ArrayList<TopicPartition>();
+        for (PartitionInfo pi : consumer.partitionsFor("tamboo_config")) {
+            tpList.add(new TopicPartition(pi.topic(), pi.partition()));
+        }
+        consumer.assign(tpList);
+        consumer.seekToBeginning(tpList.toArray(new TopicPartition[] {}));
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(100);
             for (ConsumerRecord<String, String> record : records){
