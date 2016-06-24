@@ -15,7 +15,8 @@ import java.util.concurrent.Future;
 public class ProducerTest {
 
     public static void main(String[] args) throws Exception {
-
+    	//-Djava.security.auth.login.config=/etc/kafka/kafka_client_jaas.conf
+    	System.setProperty("java.security.auth.login.config", "/etc/kafka/kafka_client_jaas.conf");
 
         Properties props = new Properties();
         InputStream inputStream = ProducerTest.class.getResourceAsStream("/producer.properties");
@@ -27,7 +28,7 @@ public class ProducerTest {
 
         for(int i = 0; i < 10; i++){
             //long start = System.currentTimeMillis();
-            Future<RecordMetadata> future = producer.send(new ProducerRecord<String, String>("test3", Integer.toString(i), Integer.toString(i)));
+            Future<RecordMetadata> future = producer.send(new ProducerRecord<String, String>("test", Integer.toString(i), Integer.toString(i)));
             //future.get().offset();
             //long end = System.currentTimeMillis();
             //System.out.println(end - start);
