@@ -27,7 +27,7 @@ public class ProducerTest {
 
         for(int i = 0; i < 10; i++){
             //long start = System.currentTimeMillis();
-            Future<RecordMetadata> future = producer.send(new ProducerRecord<String, String>("test", Integer.toString(i), Integer.toString(i)));
+            Future<RecordMetadata> future = producer.send(new ProducerRecord<String, String>("test3", Integer.toString(i), Integer.toString(i)));
             //future.get().offset();
             //long end = System.currentTimeMillis();
             //System.out.println(end - start);
