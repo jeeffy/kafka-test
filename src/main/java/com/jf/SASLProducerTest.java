@@ -1,23 +1,25 @@
 package com.jf;
 
-import java.io.InputStream;
-import java.util.Properties;
-import java.util.concurrent.Future;
-
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 
+import java.io.InputStream;
+import java.util.Properties;
+import java.util.concurrent.Future;
+
 /**
  * Created by jeeffy on 1/18/16.
  */
-public class ProducerTest {
+public class SASLProducerTest {
 
     public static void main(String[] args) throws Exception {
+    	//-Djava.security.auth.login.config=/etc/kafka/kafka_client_jaas.conf
+    	System.setProperty("java.security.auth.login.config", "/etc/kafka/kafka_client_jaas.conf");
 
         Properties props = new Properties();
-        InputStream inputStream = ProducerTest.class.getResourceAsStream("/producer.properties");
+        InputStream inputStream = SASLProducerTest.class.getResourceAsStream("/sasl-producer.properties");
         props.load(inputStream);
         Producer<String, String> producer = new KafkaProducer<String, String>(props);
         long start = System.currentTimeMillis();
