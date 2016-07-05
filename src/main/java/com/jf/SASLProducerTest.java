@@ -4,8 +4,11 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.common.Metric;
+import org.apache.kafka.common.MetricName;
 
 import java.io.InputStream;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Future;
 
@@ -25,7 +28,9 @@ public class SASLProducerTest {
         long start = System.currentTimeMillis();
         //producer.send(new ProducerRecord<String, String>("test", Integer.toString(1), Integer.toString(21)));
 
-
+        Map<MetricName, ? extends Metric> metrics = producer.metrics();
+    	System.out.println(metrics);
+    	
         for(int i = 0; i < 10; i++){
             //long start = System.currentTimeMillis();
             Future<RecordMetadata> future = producer.send(new ProducerRecord<String, String>("test", Integer.toString(i), Integer.toString(i)));

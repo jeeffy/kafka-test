@@ -11,20 +11,24 @@ import java.util.Properties;
 /**
  * Created by jeeffy on 1/18/16.
  */
-public class ConsumerTest2 {
+public class SASLConsumerTest {
     public static void main(String[] args) throws Exception {
+    	System.setProperty("java.security.auth.login.config", "/etc/kafka/kafka_client_jaas.conf");
+    	
         Properties props = new Properties();
-        InputStream inputStream = ConsumerTest2.class.getResourceAsStream("/consumer.properties");
+        InputStream inputStream = SASLConsumerTest.class.getResourceAsStream("/sasl-consumer.properties");
         props.load(inputStream);
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
 
         consumer.subscribe(Arrays.asList("test"));
 
-        ConsumerRecords<String, String> records = consumer.poll(1000);
-        for (ConsumerRecord<String, String> record : records){
-            System.out.printf("offset = %d, key = %s, value = %s", record.offset(), record.key(), record.value());
-            System.out.println();
+        while (true) {
+            ConsumerRecords<String, String> records = consumer.poll(100);
+            for (ConsumerRecord<String, String> record : records){
+                System.out.printf("offset = %d, key = %s, value = %s", record.offset(), record.key(), record.value());
+                System.out.println();
 
+            }
         }
     }
 }
