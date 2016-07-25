@@ -1,12 +1,12 @@
 package com.jf;
 
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Properties;
+
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 /**
  * Created by jeeffy on 1/18/16.
@@ -18,14 +18,15 @@ public class SASLConsumerTest {
         Properties props = new Properties();
         InputStream inputStream = SASLConsumerTest.class.getResourceAsStream("/sasl-consumer.properties");
         props.load(inputStream);
-        KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
+//        KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
+        KafkaConsumer<byte[], byte[]> consumer = new KafkaConsumer<byte[], byte[]>(props);
 
-        consumer.subscribe(Arrays.asList("test"));
+        consumer.subscribe(Arrays.asList("acl-test"));
 
         while (true) {
-            ConsumerRecords<String, String> records = consumer.poll(100);
-            for (ConsumerRecord<String, String> record : records){
-                System.out.printf("offset = %d, key = %s, value = %s", record.offset(), record.key(), record.value());
+            ConsumerRecords<byte[], byte[]> records = consumer.poll(100);
+            for (ConsumerRecord<byte[], byte[]> record : records){
+                System.out.printf("offset = %d, key = %s, value = %s", record.offset(), new String(record.key()), new String(record.value()));
                 System.out.println();
 
             }

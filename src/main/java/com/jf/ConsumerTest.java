@@ -1,12 +1,12 @@
 package com.jf;
 
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Properties;
+
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 /**
  * Created by jeeffy on 1/18/16.
@@ -18,7 +18,7 @@ public class ConsumerTest {
         props.load(inputStream);
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
 
-        consumer.subscribe(Arrays.asList("test"));
+        consumer.subscribe(Arrays.asList("acl-test"));
 
         /*List<TopicPartition> tpList = new ArrayList<TopicPartition>();
         for (PartitionInfo pi : consumer.partitionsFor("tamboo_config")) {
