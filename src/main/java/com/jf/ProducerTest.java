@@ -8,12 +8,15 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by jeeffy on 1/18/16.
  */
 public class ProducerTest {
-
+	private static final Logger log = LoggerFactory.getLogger(ProducerTest.class);
+	
     public static void main(String[] args) throws Exception {
 
         Properties props = new Properties();
@@ -31,7 +34,8 @@ public class ProducerTest {
             //long end = System.currentTimeMillis();
             //System.out.println(end - start);
             //future.get().offset();
-            System.out.println(future.get().offset());
+            log.info("offset is {}", future.get().offset());
+            //System.out.println(future.get().offset());
         }
         long end = System.currentTimeMillis();
         System.out.println(end - start);
