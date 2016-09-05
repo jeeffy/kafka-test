@@ -1,4 +1,4 @@
-package com.jf;
+package com.jeeffy.test;
 
 import org.I0Itec.zkclient.IZkDataListener;
 import org.I0Itec.zkclient.ZkClient;
@@ -10,7 +10,7 @@ public class ZKClientTest {
     public static void main(String[] args) {
         final ZkClient zkClient = new ZkClient("localhost:2181",5000,5000,new ZkSerializerImpl());
         System.out.println(zkClient.getChildren("/brokers/topics/test2/partitions").size());
-        System.out.println(zkClient.readData("/brokers/topics/test2/partitions/0/state"));
+        //System.out.println(zkClient.readData("/brokers/topics/test2/partitions/0/state"));
 
         new Thread(new Runnable() {
 

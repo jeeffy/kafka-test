@@ -1,4 +1,4 @@
-package com.jf;
+package com.jeeffy.test;
 
 import java.io.InputStream;
 import java.util.Arrays;
@@ -18,7 +18,7 @@ public class ConsumerTest {
         props.load(inputStream);
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
 
-        consumer.subscribe(Arrays.asList("acl-test"));
+        consumer.subscribe(Arrays.asList("mcc999"));
 
         /*List<TopicPartition> tpList = new ArrayList<TopicPartition>();
         for (PartitionInfo pi : consumer.partitionsFor("tamboo_config")) {

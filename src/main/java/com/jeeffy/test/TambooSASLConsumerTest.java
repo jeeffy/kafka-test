@@ -1,8 +1,7 @@
-package com.jf;
+package com.jeeffy.test;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
-import com.unistacks.tamboo.common.exception.ConfigNotFoundException;
 import com.unistacks.tamboo.kafkaclient.consumer.KafkaConsumer;
 import com.unistacks.tamboo.kafkaclient.consumer.KafkaConsumerFactory;
 
@@ -18,7 +17,7 @@ public class TambooSASLConsumerTest {
 				ConsumerRecord<byte[], byte[]> record = consumer.receive();
 				System.out.println(new String(record.key()) + ":" + new String(record.value()));
 			}
-		} catch (ConfigNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     }

@@ -1,4 +1,4 @@
-package com.jf;
+package com.jeeffy.test;
 
 import org.I0Itec.zkclient.exception.ZkMarshallingError;
 import org.I0Itec.zkclient.serialize.ZkSerializer;

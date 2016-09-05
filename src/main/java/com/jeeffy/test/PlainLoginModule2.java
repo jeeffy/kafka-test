@@ -1,4 +1,4 @@
-package com.jf;
+package com.jeeffy.test;
 
 import java.util.Map;
 

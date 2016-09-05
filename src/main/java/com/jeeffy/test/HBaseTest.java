@@ -1,4 +1,4 @@
-package com.jf;
+package com.jeeffy.test;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;

@@ -1,9 +1,9 @@
-package com.jf;
+package com.jeeffy.test;
 
 import java.security.Provider;
 import java.security.Security;
 
-import com.jf.PlainSaslServer2.PlainSaslServerFactory2;
+import com.jeeffy.test.PlainSaslServer2.PlainSaslServerFactory2;
 
 public class PlainSaslServerProvider2 extends Provider {
 

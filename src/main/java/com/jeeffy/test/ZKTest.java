@@ -1,4 +1,4 @@
-package com.jf;
+package com.jeeffy.test;
 
 import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.ZooKeeper;
