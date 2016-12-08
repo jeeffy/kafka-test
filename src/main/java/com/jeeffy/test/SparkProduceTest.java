@@ -1,10 +1,11 @@
 package com.jeeffy.test;
 
-import java.util.Properties;
-
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+
+import java.util.Properties;
+import java.util.Random;
 
 /**
  * 先启动consumer,再启动producer测试
@@ -24,10 +25,12 @@ public class SparkProduceTest {
 
 		Producer<String, String> producer = new KafkaProducer<String, String>(props);
 		for (int i = 0; i < 10000; i++) {
-			ProducerRecord<String, String> record = new ProducerRecord<String, String>(TOPIC_NAME, "message" + i);
+            Random r = new Random();
+            int n = r.nextInt(10);
+			ProducerRecord<String, String> record = new ProducerRecord<String, String>(TOPIC_NAME, "message" + n);
 			producer.send(record);
 			try {
-				Thread.sleep(10);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
