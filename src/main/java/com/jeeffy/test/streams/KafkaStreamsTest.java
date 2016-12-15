@@ -1,4 +1,4 @@
-package com.jeeffy.test;
+package com.jeeffy.test.streams;
 
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
@@ -16,12 +16,15 @@ import java.util.Properties;
  */
 public class KafkaStreamsTest {
     public static void main(String[] args) throws Exception {
-        Properties streamsConfiguration = new Properties();
-        streamsConfiguration.put(StreamsConfig.APPLICATION_ID_CONFIG, "app1");
-        streamsConfiguration.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "kfq1:9092");
-        streamsConfiguration.put(StreamsConfig.ZOOKEEPER_CONNECT_CONFIG, "zkq1:2181");
-        streamsConfiguration.put(StreamsConfig.KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
-        streamsConfiguration.put(StreamsConfig.VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
+        Properties config = new Properties();
+        config.put(StreamsConfig.APPLICATION_ID_CONFIG, "app1");
+        //config.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "kfq1:9092");
+        //config.put(StreamsConfig.ZOOKEEPER_CONNECT_CONFIG, "zkq1:2181");
+
+        config.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        config.put(StreamsConfig.ZOOKEEPER_CONNECT_CONFIG, "localhost:2181");
+        config.put(StreamsConfig.KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
+        config.put(StreamsConfig.VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
 
         final Serde<String> stringSerde = Serdes.String();
         final Serde<Long> longSerde = Serdes.Long();
@@ -36,16 +39,16 @@ public class KafkaStreamsTest {
                 .map((key, word) -> new KeyValue<>(word, word))
                 // Required in Kafka 0.10.0 to re-partition the data because we re-keyed the stream in the `map` step.
                 // Upcoming Kafka 0.10.1 does this automatically for you (no need for `through`).
-                .through("test")
+                //.through("test")
                 //.countByKey("Counts")
                 .groupByKey()
-                .count("Counts")
+                .count("counts")
                 .toStream();
 
         wordCounts.print();
         //wordCounts.to(stringSerde, longSerde, "WordsWithCountsTopic");
 
-        KafkaStreams streams = new KafkaStreams(builder, streamsConfiguration);
+        KafkaStreams streams = new KafkaStreams(builder, config);
         streams.start();
         streams.cleanUp();
 

@@ -1,4 +1,4 @@
-package com.jeeffy.test;
+package com.jeeffy.test.streams;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -10,10 +10,7 @@ import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-/**
- * 先启动consumer,再启动producer测试
- */
-public class SparkProduceTest {
+public class StreamsProduce {
 	public static final String TOPIC_NAME = "test3";
 
 	public static void main(String[] args) {
