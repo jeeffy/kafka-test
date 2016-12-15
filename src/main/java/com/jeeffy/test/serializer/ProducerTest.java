@@ -21,14 +21,15 @@ public class ProducerTest {
         Properties props = new Properties();
         props.setProperty("bootstrap.servers","localhost:9092");
         props.setProperty("key.serializer","org.apache.kafka.common.serialization.StringSerializer");
-        props.setProperty("value.serializer","org.apache.kafka.common.serialization.StringSerializer");
+        props.setProperty("value.serializer","org.apache.kafka.common.serialization.ByteArraySerializer");
 
-        Producer<String, String> producer = new KafkaProducer<String, String>(props);
+        Producer<String, byte[]> producer = new KafkaProducer<String, byte[]>(props);
         long start = System.currentTimeMillis();
 
 
         for(int i = 0; i < 10; i++){
-            Future<RecordMetadata> future = producer.send(new ProducerRecord<String, String>("test", Integer.toString(i), Integer.toString(i)));
+            User user = new User("user"+i,i);
+            Future<RecordMetadata> future = producer.send(new ProducerRecord<String, byte[]>("test", Integer.toString(i), user.toString().getBytes()));
             System.out.println(future.get().offset());
         }
         long end = System.currentTimeMillis();

@@ -16,16 +16,16 @@ public class ConsumerTest {
         props.setProperty("bootstrap.servers","localhost:9092");
         props.setProperty("group.id","group1");
         props.setProperty("key.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
-        props.setProperty("value.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
+        props.setProperty("value.deserializer","org.apache.kafka.common.serialization.ByteArrayDeserializer");
 
-        KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
+        KafkaConsumer<String, byte[]> consumer = new KafkaConsumer<String, byte[]>(props);
 
         consumer.subscribe(Arrays.asList("test"));
 
         while (true) {
-            ConsumerRecords<String, String> records = consumer.poll(100);
-            for (ConsumerRecord<String, String> record : records){
-                System.out.printf("offset = %d, key = %s, value = %s", record.offset(), record.key(), record.value());
+            ConsumerRecords<String, byte[]> records = consumer.poll(100);
+            for (ConsumerRecord<String, byte[]> record : records){
+                System.out.printf("offset = %d, key = %s, value = %s", record.offset(), record.key(), new String(record.value()));
                 System.out.println();
 
             }
