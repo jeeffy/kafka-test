@@ -1,4 +1,4 @@
-package com.jeeffy.test.streams;
+package com.jeeffy.test.streams.test;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;

@@ -1,4 +1,4 @@
-package com.jeeffy.test.streams;
+package com.jeeffy.test.streams.test;
 
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
@@ -14,7 +14,7 @@ import java.util.Properties;
 /**
  * Created by jeeffy on 12/8/16.
  */
-public class KafkaStreamsTest {
+public class StreamsTest {
     public static void main(String[] args) throws Exception {
         Properties config = new Properties();
         config.put(StreamsConfig.APPLICATION_ID_CONFIG, "app1");
