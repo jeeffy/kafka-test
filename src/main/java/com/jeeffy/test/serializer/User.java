@@ -1,9 +1,11 @@
 package com.jeeffy.test.serializer;
 
+import java.io.Serializable;
+
 /**
  * Created by jeeffy on 12/15/16.
  */
-public class User {
+public class User implements Serializable{
     private String name;
     private int age;
 

@@ -1,5 +1,6 @@
 package com.jeeffy.test.serializer;
 
+import org.apache.commons.lang.SerializationUtils;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -25,7 +26,9 @@ public class ConsumerTest {
         while (true) {
             ConsumerRecords<String, byte[]> records = consumer.poll(100);
             for (ConsumerRecord<String, byte[]> record : records){
-                System.out.printf("offset = %d, key = %s, value = %s", record.offset(), record.key(), new String(record.value()));
+                User user = (User)SerializationUtils.deserialize(record.value());
+                //System.out.printf("offset = %d, key = %s, value = %s", record.offset(), record.key(), new String(record.value()));
+                System.out.printf("offset = %d, key = %s, value = %s", record.offset(), record.key(), user);
                 System.out.println();
 
             }

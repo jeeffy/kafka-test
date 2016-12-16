@@ -1,5 +1,6 @@
 package com.jeeffy.test.serializer;
 
+import org.apache.commons.lang.SerializationUtils;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -29,7 +30,8 @@ public class ProducerTest {
 
         for(int i = 0; i < 10; i++){
             User user = new User("user"+i,i);
-            Future<RecordMetadata> future = producer.send(new ProducerRecord<String, byte[]>("test", Integer.toString(i), user.toString().getBytes()));
+            byte[] bytes = SerializationUtils.serialize(user);
+            Future<RecordMetadata> future = producer.send(new ProducerRecord<String, byte[]>("test", Integer.toString(i), bytes));
             System.out.println(future.get().offset());
         }
         long end = System.currentTimeMillis();
