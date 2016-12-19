@@ -1,6 +1,5 @@
 package com.jeeffy.test.serializer;
 
-import org.apache.commons.lang.SerializationUtils;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -22,16 +21,16 @@ public class ProducerTest {
         Properties props = new Properties();
         props.setProperty("bootstrap.servers","localhost:9092");
         props.setProperty("key.serializer","org.apache.kafka.common.serialization.StringSerializer");
-        props.setProperty("value.serializer","org.apache.kafka.common.serialization.ByteArraySerializer");
+        props.setProperty("value.serializer","com.jeeffy.test.serializer.ObjectSerializer");
 
-        Producer<String, byte[]> producer = new KafkaProducer<String, byte[]>(props);
+        Producer<String, User> producer = new KafkaProducer<String, User>(props);
         long start = System.currentTimeMillis();
 
 
         for(int i = 0; i < 10; i++){
             User user = new User("user"+i,i);
-            byte[] bytes = SerializationUtils.serialize(user);
-            Future<RecordMetadata> future = producer.send(new ProducerRecord<String, byte[]>("test", Integer.toString(i), bytes));
+            //byte[] bytes = SerializationUtils.serialize(user);
+            Future<RecordMetadata> future = producer.send(new ProducerRecord<String, User>("test", Integer.toString(i), user));
             System.out.println(future.get().offset());
         }
         long end = System.currentTimeMillis();
